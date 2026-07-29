@@ -3,7 +3,7 @@ import { useChat } from "../context/ChatContext";
 import { useAuth } from "../context/AuthContext";
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
-import { Search, Pin, X, Reply, Pencil, Trash2, Loader } from "lucide-react";
+import { Search, Pin, X, Reply, Pencil, Trash2, Loader, Copy } from "lucide-react";
 
 const ChatContainer = ({ 
   showRightSidebar, 
@@ -392,6 +392,19 @@ const ChatContainer = ({
             <span>Trả lời</span>
           </button>
           
+          {!contextMenu.message.isRecalled && contextMenu.message.text && (
+            <button 
+              className="context-menu-item"
+              onClick={() => {
+                navigator.clipboard.writeText(contextMenu.message.text);
+                setContextMenu(null);
+              }}
+            >
+              <Copy size={14} />
+              <span>Sao chép tin nhắn</span>
+            </button>
+          )}
+
           <button 
             className="context-menu-item"
             onClick={() => {

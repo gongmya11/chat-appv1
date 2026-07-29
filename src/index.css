@@ -692,6 +692,10 @@ body::after {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .message-row.sent .message-bubble {
@@ -1057,9 +1061,9 @@ body::after {
 
 /* AUTHENTICATION PAGES (Premium matching dark mode) */
 .auth-page-wrapper {
-  --text-primary: #f5f6f7;
+  --text-primary: #2c3e50;
   --text-secondary: #7f91a4;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(0, 0, 0, 0.08);
   position: fixed;
   top: 0;
   left: 0;
@@ -1069,10 +1073,10 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0e1621;
+  background-color: #FAF8F2; /* Cozy warm white / off-white */
   background-image: 
-    radial-gradient(circle at 30% 20%, rgba(82, 162, 245, 0.07) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(142, 123, 243, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 30% 20%, rgba(246, 211, 101, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(253, 160, 133, 0.1) 0%, transparent 50%);
   overflow: hidden;
   font-family: var(--font-system);
   color: var(--text-primary);
@@ -1089,7 +1093,7 @@ body::after {
 }
 
 .auth-bg-lines line {
-  stroke: rgba(255, 255, 255, 0.015);
+  stroke: rgba(0, 0, 0, 0.02);
   stroke-width: 0.15;
 }
 
@@ -3554,6 +3558,412 @@ input:checked + .toggle-switch-slider:before {
     padding: 6px !important;
   }
 }
+
+/* Bilibili Login Page Premium Theme Styles */
+
+.auth-card-container.bili-style {
+  max-width: 840px;
+  min-height: 440px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  overflow: visible; /* to allow mascots to peek out */
+  position: relative;
+}
+
+.auth-card-container.bili-style.single-column {
+  max-width: 480px;
+  min-height: auto;
+}
+
+.auth-card-container.bili-style.single-column .auth-right-bili-form {
+  flex: 1;
+  width: 100%;
+}
+
+
+/* Left side: QR Code */
+.auth-left-qr {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.03);
+  text-align: center;
+  border-right: 1px solid var(--border-color);
+}
+
+.qr-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.qr-code-box {
+  width: 170px;
+  height: 170px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.qr-scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  box-shadow: 0 0 10px var(--color-primary);
+  animation: scan-line 3s infinite ease-in-out;
+}
+
+@keyframes scan-line {
+  0% { top: 6%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 94%; opacity: 0; }
+}
+
+.qr-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 24px;
+  max-width: 220px;
+  line-height: 1.45;
+}
+
+.qr-subtitle .highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Right side: form */
+.auth-right-bili-form {
+  flex: 1.25;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bili-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.bili-tab {
+  background: none;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.bili-tab.active {
+  color: var(--color-primary);
+}
+
+.bili-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+}
+
+.bili-input-group {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-input);
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  margin-bottom: 18px;
+}
+
+.bili-input-group:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.15);
+}
+
+.bili-input-label {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid var(--border-color);
+  min-width: 80px;
+}
+
+.bili-input-field {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.bili-input-field::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.bili-input-inner-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.bili-input-inner-wrapper .bili-input-field {
+  padding-right: 140px; /* Leave room for absolute eye icon + forgot link */
+}
+
+.bili-input-right-actions {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+}
+
+
+.bili-password-toggle {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: var(--transition-smooth);
+}
+
+.bili-password-toggle:hover {
+  color: var(--text-primary);
+}
+
+.bili-forgot-link-inline {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-left: 1px solid var(--border-color);
+  padding-left: 12px;
+  white-space: nowrap;
+}
+
+.bili-forgot-link-inline:hover {
+  text-decoration: underline;
+}
+
+.bili-action-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.bili-btn-outline {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  background: transparent;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.bili-btn-outline:hover {
+  background: rgba(58, 134, 255, 0.05);
+}
+
+.bili-btn-solid {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--color-primary);
+  box-shadow: 0 4px 10px rgba(58, 134, 255, 0.2);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.bili-btn-solid:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: 0 6px 15px rgba(58, 134, 255, 0.35);
+}
+
+.bili-btn-solid:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Social section */
+.bili-social-login {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.bili-social-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.bili-social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.bili-social-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.bili-social-circle.zalo {
+  background-color: #0084ff;
+}
+
+.bili-social-circle.wechat {
+  background-color: #09bb07;
+}
+
+.bili-social-circle.google {
+  background-color: #ea4335;
+}
+
+.bili-social-circle.facebook {
+  background-color: #1877f2;
+}
+
+.bili-social-circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Disclaimer text at bottom */
+.bili-disclaimer {
+  margin-top: 28px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.bili-disclaimer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.bili-disclaimer a:hover {
+  text-decoration: underline;
+}
+
+/* Peeking Mascot Styling */
+.peeking-mascot {
+  position: absolute;
+  bottom: -4px;
+  z-index: 10;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.peeking-mascot.left {
+  left: -80px;
+  transform: translateY(22px) rotate(15deg);
+}
+
+.peeking-mascot.right {
+  right: -80px;
+  transform: translateY(22px) rotate(-15deg);
+}
+
+/* Bobbing peeking animation on card hover */
+.auth-page-wrapper:hover .peeking-mascot.left {
+  transform: translateY(-5px) rotate(0deg);
+}
+
+.auth-page-wrapper:hover .peeking-mascot.right {
+  transform: translateY(-5px) rotate(0deg);
+}
+
+.sms-login-mock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 10px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .peeking-mascot {
+    display: none !important;
+  }
+}
+
 
 
 
