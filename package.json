@@ -1,0 +1,11 @@
+{
+  "name": "chat-app-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo containing both frontend and backend for the Chat App",
+  "scripts": {
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
+  }
+}
