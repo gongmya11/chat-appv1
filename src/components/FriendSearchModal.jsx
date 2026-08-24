@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { X, Search, UserPlus, UserCheck, MessageSquare, Loader, UserX } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Search, UserPlus, UserCheck, MessageSquare, Loader, UserX, Sparkles } from "lucide-react";
 import { useChat } from "../context/ChatContext";
 import ProfileModal from "./ProfileModal";
 
@@ -18,6 +18,32 @@ const FriendSearchModal = ({ isOpen, onClose }) => {
   const [actionLoadingId, setActionLoadingId] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [inspectUserId, setInspectUserId] = useState(null);
+
+  const fetchSuggestions = async () => {
+    setIsLoading(true);
+    setErrorMsg("");
+    try {
+      const results = await searchFriends("");
+      setSearchResults(results);
+      if (results.length === 0) {
+        setErrorMsg("Không có gợi ý người dùng nào mới");
+      }
+    } catch (err) {
+      setErrorMsg("Lỗi khi tải gợi ý");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchSuggestions();
+    } else {
+      setSearchQuery("");
+      setSearchResults([]);
+      setErrorMsg("");
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -128,7 +154,13 @@ const FriendSearchModal = ({ isOpen, onClose }) => {
               placeholder="Nhập email hoặc tên đăng nhập..."
               className="search-input"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSearchQuery(val);
+                if (!val.trim()) {
+                  fetchSuggestions();
+                }
+              }}
               autoFocus
             />
           </div>
@@ -152,6 +184,12 @@ const FriendSearchModal = ({ isOpen, onClose }) => {
 
           {searchResults.length > 0 && (
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {!searchQuery && (
+                <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: "4px", display: "flex", alignItems: "center", gap: "4px" }}>
+                  <Sparkles size={12} style={{ color: "var(--color-primary)" }} />
+                  <span>Gợi ý kết bạn mới</span>
+                </div>
+              )}
               {searchResults.map((user) => (
                 <div 
                   key={user._id}

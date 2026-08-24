@@ -4,13 +4,24 @@ import { Eye, EyeOff, Loader } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 // Mascot Left (Blue Hair, peeking)
-const MascotLeft = () => (
-  <svg className="peeking-mascot left" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+const MascotLeft = ({ isHiding }) => (
+  <svg className={`peeking-mascot left ${isHiding ? "hiding" : ""}`} width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 100 C20 70, 100 70, 100 100 Z" fill="#ffd1b3" />
-    <circle cx="45" cy="85" r="7" fill="#8b5a2b" />
-    <circle cx="47" cy="83" r="2.5" fill="#ffffff" />
-    <circle cx="75" cy="85" r="7" fill="#8b5a2b" />
-    <circle cx="77" cy="83" r="2.5" fill="#ffffff" />
+    
+    {/* Open Eyes */}
+    <g className="eyes-open">
+      <circle cx="45" cy="85" r="7" fill="#8b5a2b" />
+      <circle cx="47" cy="83" r="2.5" fill="#ffffff" />
+      <circle cx="75" cy="85" r="7" fill="#8b5a2b" />
+      <circle cx="77" cy="83" r="2.5" fill="#ffffff" />
+    </g>
+
+    {/* Closed Eyes */}
+    <g className="eyes-closed">
+      <path d="M38 85 Q45 80 52 85" stroke="#8b5a2b" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M68 85 Q75 80 82 85" stroke="#8b5a2b" strokeWidth="3" strokeLinecap="round" fill="none" />
+    </g>
+
     <ellipse cx="37" cy="92" rx="6" ry="3" fill="#ff9999" opacity="0.6" />
     <ellipse cx="83" cy="92" rx="6" ry="3" fill="#ff9999" opacity="0.6" />
     <path d="M56 94 Q60 98 64 94" stroke="#8b5a2b" strokeWidth="2.5" strokeLinecap="round" fill="none" />
@@ -19,19 +30,30 @@ const MascotLeft = () => (
     <path d="M20 62 L11 48 L27 55 Z" fill="#00b4d8" />
     <path d="M98 65 L112 45 L88 55 Z" fill="#3a86ff" />
     <path d="M100 62 L111 48 L93 55 Z" fill="#00b4d8" />
-    <circle cx="28" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
-    <circle cx="92" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
+    <circle className="mascot-hand left-hand" cx="28" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
+    <circle className="mascot-hand right-hand" cx="92" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
   </svg>
 );
 
 // Mascot Right (White/Pink Hair, peeking)
-const MascotRight = () => (
-  <svg className="peeking-mascot right" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+const MascotRight = ({ isHiding }) => (
+  <svg className={`peeking-mascot right ${isHiding ? "hiding" : ""}`} width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 100 C20 70, 100 70, 100 100 Z" fill="#ffd1b3" />
-    <circle cx="45" cy="85" r="7" fill="#333333" />
-    <circle cx="47" cy="83" r="2.5" fill="#ffffff" />
-    <circle cx="75" cy="85" r="7" fill="#333333" />
-    <circle cx="77" cy="83" r="2.5" fill="#ffffff" />
+    
+    {/* Open Eyes */}
+    <g className="eyes-open">
+      <circle cx="45" cy="85" r="7" fill="#333333" />
+      <circle cx="47" cy="83" r="2.5" fill="#ffffff" />
+      <circle cx="75" cy="85" r="7" fill="#333333" />
+      <circle cx="77" cy="83" r="2.5" fill="#ffffff" />
+    </g>
+
+    {/* Closed Eyes */}
+    <g className="eyes-closed">
+      <path d="M38 85 Q45 80 52 85" stroke="#333333" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M68 85 Q75 80 82 85" stroke="#333333" strokeWidth="3" strokeLinecap="round" fill="none" />
+    </g>
+
     <ellipse cx="37" cy="92" rx="6" ry="3" fill="#ff9999" opacity="0.6" />
     <ellipse cx="83" cy="92" rx="6" ry="3" fill="#ff9999" opacity="0.6" />
     <path d="M57 93 Q60 90 63 93" stroke="#333333" strokeWidth="2.5" strokeLinecap="round" fill="none" />
@@ -40,8 +62,8 @@ const MascotRight = () => (
     <path d="M20 62 L11 48 L27 55 Z" fill="#ff99bb" />
     <path d="M98 65 L112 45 L88 55 Z" fill="#f472b6" />
     <path d="M100 62 L111 48 L93 55 Z" fill="#ff99bb" />
-    <circle cx="28" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
-    <circle cx="92" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
+    <circle className="mascot-hand left-hand" cx="28" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
+    <circle className="mascot-hand right-hand" cx="92" cy="115" r="7" fill="#ffd1b3" stroke="#e8eaed" strokeWidth="1.5" />
   </svg>
 );
 
@@ -52,6 +74,7 @@ const Signup = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocusPassword, setIsFocusPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const { signup, isSigningUp } = useAuth();
@@ -84,8 +107,8 @@ const Signup = () => {
 
   return (
     <div className="auth-page-wrapper">
-      <MascotLeft />
-      <MascotRight />
+      <MascotLeft isHiding={isFocusPassword && !showPassword} />
+      <MascotRight isHiding={isFocusPassword && !showPassword} />
 
       <div className="auth-card-container bili-style single-column">
         {/* Centered Signup Form */}
@@ -135,6 +158,8 @@ const Signup = () => {
                   className="bili-input-field"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onFocus={() => setIsFocusPassword(true)}
+                  onBlur={() => setIsFocusPassword(false)}
                 />
                 <div className="bili-input-right-actions">
                   <button

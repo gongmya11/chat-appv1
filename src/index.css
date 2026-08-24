@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* LIGHT MODE (Default) */
-  --bg-body: #f4f6f9;
-  --bg-surface: rgba(255, 255, 255, 0.85);
-  --bg-active: rgba(82, 162, 245, 0.12);
-  --bg-hover: rgba(0, 0, 0, 0.03);
-  --border-color: rgba(0, 0, 0, 0.08);
+  /* LIGHT MODE (Default) - BILIBILI ANIME STYLE */
+  --bg-body: #fff5f7;
+  --bg-surface: rgba(255, 255, 255, 0.9);
+  --bg-active: rgba(251, 114, 153, 0.12);
+  --bg-hover: rgba(251, 114, 153, 0.04);
+  --border-color: rgba(251, 114, 153, 0.15);
   
-  --color-primary: #3a86ff; /* Modern Premium Blue */
-  --color-accent: #00b4d8;
-  --color-accent-pink: #f472b6;
+  --color-primary: #fb7299; /* Bilibili Pink */
+  --color-accent: #00aeec; /* Bilibili Blue */
+  --color-accent-pink: #fb7299;
   
-  --color-messenger-blue: #3a86ff;
-  --color-messenger-blue-hover: #1d62d4;
+  --color-messenger-blue: #fb7299;
+  --color-messenger-blue-hover: #ff5c8a;
   --color-received-bubble: #ffffff;
-  --color-sent-gradient: linear-gradient(135deg, #00b4d8 0%, #3a86ff 100%);
+  --color-sent-gradient: linear-gradient(135deg, #fb7299 0%, #ff8ea9 100%);
   
   --text-primary: #1f2937;
   --text-secondary: #6b7280;
@@ -27,58 +27,58 @@
   
   --font-system: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(251, 114, 153, 0.08);
   
   /* Layout specific overrides */
-  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(58, 134, 255, 0.03) 0%, transparent 40%),
-                    radial-gradient(circle at 90% 80%, rgba(58, 134, 255, 0.02) 0%, transparent 40%);
-  --bg-window: rgba(255, 255, 255, 0.75);
-  --bg-sidebar: rgba(255, 255, 255, 0.5);
-  --bg-header: rgba(255, 255, 255, 0.9);
-  --bg-input: rgba(0, 0, 0, 0.04);
-  --bg-no-chat: rgba(244, 246, 249, 0.95);
+  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(251, 114, 153, 0.04) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(0, 174, 236, 0.03) 0%, transparent 40%);
+  --bg-window: rgba(255, 255, 255, 0.85);
+  --bg-sidebar: rgba(255, 255, 255, 0.6);
+  --bg-header: rgba(255, 255, 255, 0.95);
+  --bg-input: rgba(251, 114, 153, 0.03);
+  --bg-no-chat: rgba(255, 245, 247, 0.95);
   
   /* Chat feed background and pattern */
-  --chat-feed-bg: #eaeef2;
-  --chat-feed-pattern: radial-gradient(rgba(0, 0, 0, 0.03) 1.5px, transparent 1.5px),
-                        radial-gradient(rgba(0, 0, 0, 0.015) 1.5px, transparent 1.5px);
+  --chat-feed-bg: #fff0f3;
+  --chat-feed-pattern: radial-gradient(rgba(251, 114, 153, 0.05) 1.5px, transparent 1.5px),
+                        radial-gradient(rgba(0, 174, 236, 0.03) 1.5px, transparent 1.5px);
 }
 
 :root[data-app-theme="dark"] {
-  /* PREMIUM SLATE DARK THEME */
-  --bg-body: #0e1621;
-  --bg-surface: rgba(23, 33, 43, 0.8);
-  --bg-active: rgba(109, 199, 182, 0.15);
+  /* PREMIUM SLATE DARK THEME - BILIBILI STYLE */
+  --bg-body: #18191c;
+  --bg-surface: rgba(35, 37, 42, 0.85);
+  --bg-active: rgba(251, 114, 153, 0.15);
   --bg-hover: rgba(255, 255, 255, 0.04);
   --border-color: rgba(255, 255, 255, 0.08);
   
-  --color-primary: #6dc7b6;
-  --color-accent: #3cd0b3;
-  --color-accent-pink: #f472b6;
+  --color-primary: #fb7299;
+  --color-accent: #00aeec;
+  --color-accent-pink: #fb7299;
   
-  --color-messenger-blue: #6dc7b6;
-  --color-messenger-blue-hover: #55bfa9;
-  --color-received-bubble: #182533;
-  --color-sent-gradient: linear-gradient(135deg, #2b6156 0%, #6dc7b6 100%);
+  --color-messenger-blue: #fb7299;
+  --color-messenger-blue-hover: #ff80a4;
+  --color-received-bubble: #2b2d34;
+  --color-sent-gradient: linear-gradient(135deg, #b03d5e 0%, #fb7299 100%);
   
   --text-primary: #f5f6f7;
-  --text-secondary: #7f91a4;
-  --color-success: #6dc7b6;
+  --text-secondary: #94a3b8;
+  --color-success: #fb7299;
   
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   
   /* Layout specific overrides */
-  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(109, 199, 182, 0.05) 0%, transparent 40%),
-                    radial-gradient(circle at 90% 80%, rgba(109, 199, 182, 0.04) 0%, transparent 40%);
-  --bg-window: rgba(23, 33, 43, 0.85);
-  --bg-sidebar: rgba(23, 33, 43, 0.7);
-  --bg-header: rgba(23, 33, 43, 0.95);
-  --bg-input: rgba(24, 37, 51, 0.7);
-  --bg-no-chat: rgba(14, 22, 33, 0.95);
+  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(251, 114, 153, 0.06) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(0, 174, 236, 0.05) 0%, transparent 40%);
+  --bg-window: rgba(35, 37, 42, 0.9);
+  --bg-sidebar: rgba(27, 29, 33, 0.8);
+  --bg-header: rgba(35, 37, 42, 0.95);
+  --bg-input: rgba(43, 45, 52, 0.7);
+  --bg-no-chat: rgba(24, 25, 28, 0.95);
   
   /* Chat feed background and pattern */
-  --chat-feed-bg: #0e1621;
-  --chat-feed-pattern: radial-gradient(rgba(255, 255, 255, 0.015) 1.5px, transparent 1.5px),
+  --chat-feed-bg: #18191c;
+  --chat-feed-pattern: radial-gradient(rgba(251, 114, 153, 0.04) 1.5px, transparent 1.5px),
                         radial-gradient(rgba(255, 255, 255, 0.01) 1.5px, transparent 1.5px);
 }
 
@@ -538,6 +538,127 @@ body::after {
   margin-bottom: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   position: relative;
+}
+
+/* Animated Bilibili TV Mascot */
+.bili-tv-wrapper {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.bili-tv-svg {
+  filter: drop-shadow(0 12px 24px rgba(251, 114, 153, 0.25));
+  animation: tv-float 4s ease-in-out infinite;
+}
+
+/* TV Floating Animation */
+@keyframes tv-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* Eyes Blinking */
+.tv-eye {
+  animation: tv-blink 4s infinite;
+  transform-origin: center;
+}
+
+@keyframes tv-blink {
+  0%, 90%, 100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+/* Blush Pulsing */
+.tv-blush {
+  animation: tv-blush-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes tv-blush-pulse {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+/* TV Antennae Wiggling */
+.tv-antenna {
+  animation: tv-antenna-wiggle 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.tv-antenna.left-ant {
+  transform-origin: 90px 45px;
+}
+
+.tv-antenna.right-ant {
+  transform-origin: 110px 45px;
+}
+
+@keyframes tv-antenna-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Floating Stars/Hearts around TV */
+.floating-star {
+  position: absolute;
+  fill: var(--color-accent);
+  opacity: 0.6;
+  animation: float-star 3s ease-in-out infinite;
+}
+
+.floating-star.star-1 {
+  top: -10px;
+  left: -20px;
+  animation-delay: 0s;
+  width: 20px;
+  height: 20px;
+}
+
+.floating-star.star-2 {
+  bottom: 10px;
+  right: -35px;
+  animation-delay: 1.5s;
+  width: 16px;
+  height: 16px;
+  fill: var(--color-primary);
+}
+
+.floating-star.heart-1 {
+  top: 15px;
+  right: -25px;
+  animation-delay: 0.7s;
+  width: 14px;
+  height: 14px;
+  fill: #ff6584;
+}
+
+@keyframes float-star {
+  0%, 100% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-6px) scale(1.1);
+    opacity: 0.8;
+  }
 }
 
 .no-chat-title {
@@ -2404,12 +2525,14 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   animation: modalFadeIn 0.3s ease-out;
 }
 
 .premium-modal-container {
   width: 100%;
   max-width: 520px;
+  max-height: 90vh;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: 24px;
@@ -2531,6 +2654,8 @@ body::after {
 /* Modal Content Area */
 .premium-modal-content {
   padding: 24px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* Switch Switcher styling */
@@ -3926,6 +4051,31 @@ input:checked + .toggle-switch-slider:before {
   z-index: 10;
   pointer-events: none;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.peeking-mascot .mascot-hand {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.peeking-mascot .eyes-open,
+.peeking-mascot .eyes-closed {
+  transition: opacity 0.25s ease-in-out;
+}
+
+.peeking-mascot.hiding .eyes-open {
+  opacity: 0 !important;
+}
+
+.peeking-mascot:not(.hiding) .eyes-closed {
+  opacity: 0 !important;
+}
+
+.peeking-mascot.hiding .mascot-hand.left-hand {
+  transform: translate(17px, -30px);
+}
+
+.peeking-mascot.hiding .mascot-hand.right-hand {
+  transform: translate(-17px, -30px);
 }
 
 .peeking-mascot.left {
