@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, Search, UserPlus, UserCheck, MessageSquare, Loader, UserX, Sparkles } from "lucide-react";
 import { useChat } from "../context/ChatContext";
 import ProfileModal from "./ProfileModal";
@@ -117,7 +118,7 @@ const FriendSearchModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  return (
+  return createPortal(
     <div className="premium-modal-overlay" onClick={onClose}>
       <div 
         className="profile-card-container" 
@@ -304,7 +305,8 @@ const FriendSearchModal = ({ isOpen, onClose }) => {
         }} 
         userId={inspectUserId} 
       />
-    </div>
+    </div>,
+    document.body
   );
 };
 

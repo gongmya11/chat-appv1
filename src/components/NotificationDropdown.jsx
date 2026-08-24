@@ -21,6 +21,10 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
+      // Don't close if clicking inside a modal overlay (e.g., ProfileModal)
+      if (e.target.closest(".premium-modal-overlay")) {
+        return;
+      }
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         onClose();
       }

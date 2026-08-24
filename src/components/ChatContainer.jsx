@@ -146,6 +146,9 @@ const ChatContainer = ({
     if (selectedUser?._id) {
       getMessages(selectedUser._id);
     }
+    setReplyingTo(null);
+    setEditingMessage(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedUser?._id]);
 
   // Tự động cuộn xuống cuối khi có tin nhắn mới hoặc đổi hội thoại

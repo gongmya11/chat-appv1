@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X, Camera, Edit2, Check, Loader, MessageSquare } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useChat } from "../context/ChatContext";
@@ -188,7 +189,7 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
     ? { backgroundImage: `url(${coverPreview})` }
     : { background: defaultCoverGradient };
 
-  return (
+  return createPortal(
     <div className="premium-modal-overlay" onClick={onClose}>
       <div 
         className="profile-card-container" 
@@ -583,7 +584,8 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
 
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
