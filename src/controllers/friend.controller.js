@@ -9,18 +9,23 @@ const searchUsers = async (req, res) => {
     const { query } = req.query;
     const myId = req.user._id;
 
-    if (!query) {
-      return res.status(400).json({ message: "Vui lòng nhập từ khóa tìm kiếm" });
+    let matchedUsers = [];
+    if (!query || !query.trim()) {
+      // Nếu không có từ khóa, gợi ý 6 người dùng ngẫu nhiên chưa kết bạn và không phải chính mình
+      const friendsIds = req.user.friends || [];
+      matchedUsers = await User.find({
+        _id: { $ne: myId, $nin: friendsIds }
+      }).select("-password").limit(6);
+    } else {
+      // Tìm các user khớp username hoặc email, ngoại trừ chính mình
+      matchedUsers = await User.find({
+        _id: { $ne: myId },
+        $or: [
+          { username: { $regex: query, $options: "i" } },
+          { email: { $regex: query, $options: "i" } }
+        ]
+      }).select("-password");
     }
-
-    // Tìm các user khớp username hoặc email, ngoại trừ chính mình
-    const matchedUsers = await User.find({
-      _id: { $ne: myId },
-      $or: [
-        { username: { $regex: query, $options: "i" } },
-        { email: { $regex: query, $options: "i" } }
-      ]
-    }).select("-password");
 
     // Lấy thông tin về mối quan hệ giữa mình và các user tìm được
     const usersWithStatus = await Promise.all(
@@ -84,6 +89,58 @@ const sendFriendRequest = async (req, res) => {
     const receiver = await User.findById(receiverId);
     if (!receiver) {
       return res.status(404).json({ message: "Người dùng không tồn tại" });
+    }
+
+    const botEmails = ["bilichan@bilibili.com", "myabot@mya.app", "kaitokid@detective.com", "alice@wonderland.com", "goku@saiyan.com"];
+    const isBot = botEmails.includes(receiver.email);
+
+    if (isBot) {
+      // Tự động kết bạn và chấp nhận lời mời
+      let request = await FriendRequest.findOne({
+        $or: [
+          { sender: myId, receiver: receiverId },
+          { sender: receiverId, receiver: myId }
+        ]
+      });
+
+      if (request) {
+        request.status = "accepted";
+        await request.save();
+      } else {
+        request = new FriendRequest({
+          sender: myId,
+          receiver: receiverId,
+          status: "accepted"
+        });
+        await request.save();
+      }
+
+      // Thêm bạn bè cho cả hai
+      await User.findByIdAndUpdate(myId, { $addToSet: { friends: receiverId } });
+      await User.findByIdAndUpdate(receiverId, { $addToSet: { friends: myId } });
+
+      // Tạo thông báo "đã chấp nhận kết bạn" gửi từ Bot tới Người dùng
+      const notification = new Notification({
+        sender: receiverId, // người gửi là Bot
+        receiver: myId,     // người nhận là User
+        type: "friend_accept",
+        relatedId: request._id,
+        onModel: "FriendRequest"
+      });
+      await notification.save();
+
+      // Gửi Socket cho Người dùng
+      const mySocketId = getReceiverSocketId(myId);
+      if (mySocketId) {
+        const populatedNotification = await notification.populate("sender", "username avatar");
+        io.to(mySocketId).emit("new_notification", populatedNotification);
+        io.to(mySocketId).emit("friend_updated");
+      }
+
+      return res.status(200).json({ 
+        message: `Đã kết bạn với ${receiver.username} thành công!`, 
+        request 
+      });
     }
 
     // Kiểm tra xem đã là bạn bè chưa

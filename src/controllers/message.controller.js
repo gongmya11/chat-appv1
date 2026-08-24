@@ -83,6 +83,74 @@ const getMessages = async (req, res) => {
   }
 };
 
+const generateBotReply = (botUsername, userMessageText) => {
+  const msg = (userMessageText || "").toLowerCase();
+  
+  if (botUsername === "BiliChan") {
+    if (msg.includes("hello") || msg.includes("chào") || msg.includes("hi")) {
+      return "Konnichiwa! Bili-chan chào bạn nha~ Chúc bạn một ngày tràn đầy năng lượng! 🌸✨";
+    }
+    if (msg.includes("mật khẩu") || msg.includes("pass") || msg.includes("f12")) {
+      return "Úi da! Đừng nhắc đến F12 nữa mà, Bili-chan ngại ngùng lắm nên mới phải che mắt lại đó~ 🙈💦";
+    }
+    if (msg.includes("yêu") || msg.includes("thích")) {
+      return "Bili-chan cũng thích trò chuyện với bạn lắm á! Moa moa~ 💕";
+    }
+    const randomReplies = [
+      "Bạn đang làm gì thế? Có muốn xem anime cùng Bili-chan không nè? 📺",
+      "Hôm nay bạn thế nào? Nhớ uống đủ nước và giữ sức khỏe nha! 🥤🌸",
+      "Bili-chan luôn sẵn sàng lắng nghe tâm sự của bạn đấy! Trút bầu tâm sự đi nào~ 🥰",
+      "Ái chà, bạn nhắn tin nhanh thật đó! Chờ Bili-chan một chút xíu nha~ ⚡"
+    ];
+    return randomReplies[Math.floor(Math.random() * randomReplies.length)];
+  }
+
+  if (botUsername === "MyaBot") {
+    if (msg.includes("help") || msg.includes("giúp") || msg.includes("chức năng")) {
+      return "🤖 [Mya Assistant] Các chức năng hỗ trợ:\n1. Gửi tin nhắn văn bản / hình ảnh.\n2. Thả tim tin nhắn (đúp chuột).\n3. Ghim tin nhắn lên đầu đoạn chat.\n4. Thu hồi hoặc chỉnh sửa tin nhắn.";
+    }
+    return "🤖 [Hệ thống Mya Bot] Đã nhận thông điệp của bạn. Trạng thái kết nối của bạn: Hoạt động ổn định. Để xem trợ giúp, hãy gõ 'help' hoặc 'giúp'.";
+  }
+
+  if (botUsername === "KaitoKid") {
+    if (msg.includes("ảo thuật") || msg.includes("magic") || msg.includes("trò")) {
+      return "🃏 Một ảo thuật gia đích thực sẽ không bao giờ tiết lộ bí mật của mình! Nhưng tôi có thể gửi cho bạn một đóa hồng ảo thuật~ 🌹✨";
+    }
+    const kidReplies = [
+      "Siêu trộm Kid đã nhận được thư khiêu chiến của bạn. Tôi sẽ đánh cắp trái tim của bạn vào đêm nay! 🌌🃏",
+      "Gặp gỡ dưới ánh trăng luôn là thời điểm lãng mạn nhất để bắt đầu một màn ảo thuật. 🎩",
+      "Con người thường bị đánh lừa bởi những gì mắt họ nhìn thấy. Hãy cẩn thận đấy! 👀🃏"
+    ];
+    return kidReplies[Math.floor(Math.random() * kidReplies.length)];
+  }
+
+  if (botUsername === "AliceWonder") {
+    if (msg.includes("thỏ") || msg.includes("rabbit")) {
+      return "🐰 Ôi không! Anh Thỏ Trắng lại trễ giờ rồi! Tôi phải đuổi theo anh ấy đây, hẹn gặp lại bạn sau nhé! ⏰⚡";
+    }
+    const aliceReplies = [
+      "Nơi này thật kỳ lạ... Mọi thứ cứ đổi kích thước liên tục. Bạn có biết đường ra khỏi xứ sở này không? 🍄🚪",
+      "Chào bạn! Bạn có muốn uống trà chiều cùng tôi và người làm mũ Điên Hatter không? ☕🍰",
+      "Đôi khi tôi tin vào 6 điều không tưởng trước khi ăn sáng đấy! 🌟"
+    ];
+    return aliceReplies[Math.floor(Math.random() * aliceReplies.length)];
+  }
+
+  if (botUsername === "SonGoku") {
+    if (msg.includes("mạnh") || msg.includes("luyện") || msg.includes("đấm")) {
+      return "🔥 Tuyệt vời! Hãy cùng nhau vào Phòng Tập Thời Gian để rèn luyện và vượt qua giới hạn của bản thân nào! Ka-me-ha-me-ha!!! 💥";
+    }
+    const gokuReplies = [
+      "Chào bạn! Tớ là Goku đây. Hôm nay tớ vừa tập luyện xong, đói bụng quá đi thôi! 🍖🍚",
+      "Đối thủ mạnh nhất của chúng ta chính là bản thân của ngày hôm qua. Hãy cố gắng lên nhé! 💪⚡",
+      "Chào nhé! Cậu có muốn cùng tớ đi tìm ngọc rồng không? Tớ có mang theo Rada dò tìm đây! 🐉🔮"
+    ];
+    return gokuReplies[Math.floor(Math.random() * gokuReplies.length)];
+  }
+
+  return `Chào bạn! Mình là ${botUsername}. Rất vui được nhắn tin với bạn! 😊`;
+};
+
 // Gửi tin nhắn mới
 const sendMessage = async (req, res) => {
   try {
@@ -132,6 +200,41 @@ const sendMessage = async (req, res) => {
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
+    // TỰ ĐỘNG PHẢN HỒI NẾU NGƯỜI NHẬN LÀ BOT
+    const receiver = await User.findById(receiverId);
+    const botEmails = ["bilichan@bilibili.com", "myabot@mya.app", "kaitokid@detective.com", "alice@wonderland.com", "goku@saiyan.com"];
+    const isBot = receiver && botEmails.includes(receiver.email);
+
+    if (isBot) {
+      setTimeout(async () => {
+        try {
+          const replyText = generateBotReply(receiver.username, text);
+          
+          // Tạo tin nhắn phản hồi của Bot
+          const replyMessage = new Message({
+            sender: receiverId, // người gửi là Bot
+            conversationId: conversation._id,
+            text: replyText,
+            image: "",
+            replyTo: null
+          });
+          
+          // Cập nhật lastMessage của conversation
+          conversation.lastMessage = replyMessage._id;
+          
+          await Promise.all([replyMessage.save(), conversation.save()]);
+          
+          // Gửi socket tin nhắn phản hồi tới User
+          const userSocketId = getReceiverSocketId(senderId.toString());
+          if (userSocketId) {
+            io.to(userSocketId).emit("newMessage", replyMessage);
+          }
+        } catch (err) {
+          console.error("Lỗi khi bot phản hồi tự động:", err.message);
+        }
+      }, 1200); // 1.2s delay
     }
 
     res.status(201).json(newMessage);
